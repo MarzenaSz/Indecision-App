@@ -18,6 +18,7 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
+        _this.handlePick = _this.handlePick.bind(_this);
         // set default state
         _this.state = {
             options: ["Thing one", "Thing two", "Thing Six"]
@@ -35,6 +36,15 @@ var IndecisionApp = function (_React$Component) {
                 };
             });
         }
+    }, {
+        key: "handlePick",
+        value: function handlePick() {
+            // pick a random option from options array
+            var randNum = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[randNum];
+            // print the picked option to the screen
+            alert(option);
+        }
         // render components
 
     }, {
@@ -47,7 +57,7 @@ var IndecisionApp = function (_React$Component) {
                 "div",
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, { hasOptions: this.state.options.length > 0 }),
+                React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
                 React.createElement(Options, { options: this.state.options,
                     handleDeleteOptions: this.handleDeleteOptions
                 }),
@@ -101,11 +111,6 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: "handlePick",
-        value: function handlePick() {
-            alert("handlePick");
-        }
-    }, {
         key: "render",
         value: function render() {
             return React.createElement(
@@ -113,7 +118,7 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     "button",
-                    { onClick: this.handlePick
+                    { onClick: this.props.handlePick
                         // flip the boolean 
                         , disabled: !this.props.hasOptions },
                     "What should I do?"

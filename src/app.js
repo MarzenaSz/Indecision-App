@@ -3,6 +3,7 @@ class IndecisionApp extends React.Component {
     constructor(props){
         super(props);
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+        this.handlePick = this.handlePick.bind(this);
         // set default state
         this.state = {
             options: ["Thing one", "Thing two", "Thing Six"]
@@ -17,6 +18,15 @@ class IndecisionApp extends React.Component {
             };
         });
     }
+
+    handlePick(){
+        // pick a random option from options array
+        const randNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randNum];
+        // print the picked option to the screen
+        alert(option);
+
+    }
     // render components
     render() {
         const title = "Indecision App";
@@ -27,8 +37,9 @@ class IndecisionApp extends React.Component {
                 {/* nesting components */}
                 {/* pass in the data that will be used inside Header class component*/}
                 <Header title={title} subtitle={subtitle}/>
-                {/* pass in boolean props to check if there is anyhing in an array */}
-                <Action hasOptions={this.state.options.length > 0} />
+                {/* pass in boolean props to check if there is anyhing in an array, as well as
+                 hanldePick function to pick randomly and item from an array */}
+                <Action handlePick={this.handlePick} hasOptions={this.state.options.length > 0} />
                 <Options options={this.state.options}
                 handleDeleteOptions={this.handleDeleteOptions}
                 />
@@ -53,14 +64,10 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
-    handlePick() {
-        alert("handlePick");
-    }
-
     render() {
         return (
             <div>
-                <button onClick={this.handlePick} 
+                <button onClick={this.props.handlePick} 
                 // flip the boolean 
                 disabled={!this.props.hasOptions}>
                     What should I do?
