@@ -78,54 +78,44 @@ class IndecisionApp extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    
-    render() {
-        return (
-            <div>
-                {/* use the data (props) */}
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        );
-
-    }
+const Header = (props) => {
+    return (
+        <div>
+            {/* use the data (props) */}
+            <h1>{props.title}</h1>
+            <h2>{props.subtitle}</h2>
+        </div>
+    );
 }
 
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button onClick={this.props.handlePick} 
-                // flip the boolean 
-                disabled={!this.props.hasOptions}>
-                    What should I do?
-                </button>
-            </div>
-        );
-    }
+const Action = (props) => {
+    return (
+        <div>
+            <button onClick={props.handlePick} 
+            // flip the boolean 
+            disabled={!props.hasOptions}>
+                What should I do?
+            </button>
+        </div>
+    );
 }
 
-class Options extends React.Component {
-    render() {
-        return (
-            <div>
-                <button onClick={this.props.handleDeleteOptions}>Remove All</button>
-                {/* create new instance of Option for each item in an array */}
-                {this.props.options.map((option, i) => <Option key={`option_${i + 1}`} optionText={option}/>)}
-            </div>
-        );
-    }
+const Options = (props) => {
+    return (
+        <div>
+            <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {/* create new instance of Option for each item in an array */}
+            {props.options.map((option, i) => <Option key={`option_${i + 1}`} optionText={option}/>)}
+        </div>
+    );
 }
 
-class Option extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>Option: {this.props.optionText}</p>
-            </div>
-        );
-    }
+const Option = (props) => {
+    return (
+        <div>
+            <p>Option: {props.optionText}</p>
+        </div>
+    );
 }
 
 class AddOption extends React.Component {
