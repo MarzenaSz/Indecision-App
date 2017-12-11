@@ -6,6 +6,7 @@ class IndecisionApp extends React.Component {
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+        this.handleDeleteOption = this.handleDeleteOption.bind(this);
         // set default state
         this.state = {
             options: props.options
@@ -14,12 +15,27 @@ class IndecisionApp extends React.Component {
 
     // method responsible for wiping the whole options array
     handleDeleteOptions() {
+        /*
         // wipe the options array
         this.setState(() => {
             return {
                 options: []
             };
         });
+        */
+        // more simplified setState that implicitly returns an object
+        // wipe the options array
+        this.setState(() => ({ options: [] }));
+    }
+
+    // method responsible for wiping picked option from the array
+    handleDeleteOption(optionToRemove) {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option)=> {
+                // do not keep this item in an array (false)
+                return optionToRemove !== option;
+            })
+        }));
     }
 
     // method responsible for picking an option
@@ -45,14 +61,9 @@ class IndecisionApp extends React.Component {
             return 'This option already exists';
         }
 
-        // otherwise make a change and rerender data
-        this.setState((prevState) => {
-            return {
-                // !!!!!!!!!!!!!!!!!!!!!! contact() method //
-                // merge two arrays(concat) and return a new array that contains all of the elements from both arrays
-                options: prevState.options.concat([option])
-            };
-        });
+        // !!!!!!!!!!!!!!!!!!!!!! concat() method //
+        // merge two arrays(concat) and return a new array that contains all of the elements from both arrays
+        this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
     }
 
     // render components
@@ -69,6 +80,7 @@ class IndecisionApp extends React.Component {
                 <Action handlePick={this.handlePick} hasOptions={this.state.options.length > 0} />
                 <Options options={this.state.options}
                 handleDeleteOptions={this.handleDeleteOptions}
+                handleDeleteOption={this.handleDeleteOption}
                 />
                 {/* pass in handleAddOption prop to this component */}
                 <AddOption handleAddOption={this.handleAddOption}/> 
@@ -76,7 +88,7 @@ class IndecisionApp extends React.Component {
         );
     }
 }
-
+// set default value for options array
 IndecisionApp.defaultProps = {
     options: []
 };
@@ -114,7 +126,12 @@ const Options = (props) => {
         <div>
             <button onClick={props.handleDeleteOptions}>Remove All</button>
             {/* create new instance of Option for each item in an array */}
-            {props.options.map((option, i) => <Option key={`option_${i + 1}`} optionText={option}/>)}
+            {props.options.map((option, i) => (
+                <Option key={`option_${i + 1}`} 
+                optionText={option}
+                handleDeleteOption={props.handleDeleteOption}
+                />
+            ))}
         </div>
     );
 }
@@ -123,6 +140,9 @@ const Option = (props) => {
     return (
         <div>
             <p>Option: {props.optionText}</p>
+            <button onClick={(e) => { 
+                props.handleDeleteOption(props.optionText);
+            }}>remove</button>
         </div>
     );
 }
@@ -149,11 +169,7 @@ class AddOption extends React.Component {
         const error = this.props.handleAddOption(option);
 
         // update data and rerender it
-        this.setState(() => {
-            return {
-                error //or you can set it up this way: error: error
-            };
-        });
+        this.setState(() => ({ error /*or you can set it up this way: error: error */}));
     }
 
     render() {
