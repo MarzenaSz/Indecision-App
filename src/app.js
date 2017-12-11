@@ -8,7 +8,7 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this);
         // set default state
         this.state = {
-            options: []
+            options: props.options
         };
     }
 
@@ -57,14 +57,13 @@ class IndecisionApp extends React.Component {
 
     // render components
     render() {
-        const title = "Indecision App";
         const subtitle = "Put your life in the hands of a computer";
 
         return (
             <div>
                 {/* nesting components */}
                 {/* pass in the data that will be used inside Header class component*/}
-                <Header title={title} subtitle={subtitle}/>
+                <Header subtitle={subtitle}/>
                 {/* pass in boolean props to check if there is anyhing in an array, as well as
                  hanldePick function to pick randomly and item from an array */}
                 <Action handlePick={this.handlePick} hasOptions={this.state.options.length > 0} />
@@ -78,15 +77,25 @@ class IndecisionApp extends React.Component {
     }
 }
 
+IndecisionApp.defaultProps = {
+    options: []
+};
+
 const Header = (props) => {
     return (
         <div>
             {/* use the data (props) */}
             <h1>{props.title}</h1>
-            <h2>{props.subtitle}</h2>
+            {/* show the subtitle only when a title is provided */}
+            {props.title && <h2>{props.subtitle}</h2>}
         </div>
     );
 }
+
+// set default prop for the title
+Header.defaultProps = {
+    title: 'Indecision App'
+};
 
 const Action = (props) => {
     return (
@@ -162,4 +171,4 @@ class AddOption extends React.Component {
 }
 
 // render PARENT component
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp options={['do shopping (default)', 'clean the kitchen (default)']}/>, document.getElementById('app'));

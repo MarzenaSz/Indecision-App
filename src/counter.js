@@ -5,9 +5,10 @@ class Counter extends React.Component {
         this.handleAddOne = this.handleAddOne.bind(this);
         this.handleMinusOne = this.handleMinusOne.bind(this);
         this.handleReset = this.handleReset.bind(this);
-        // set up state with default values
+        // set up state 
         this.state = {
-            count: 0
+            // pass in props info for count ( in this case default value has been set up below this class )
+            count: props.count
         };
     }
 
@@ -51,6 +52,11 @@ class Counter extends React.Component {
         );
     }
 }
+
+// set up default prop count for Counter class component
+Counter.defaultProps = {
+    count: 0
+};
 
 //render UI
 ReactDOM.render(<Counter />, document.getElementById('app'));
