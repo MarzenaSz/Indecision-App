@@ -29,10 +29,51 @@ var IndecisionApp = function (_React$Component) {
         return _this;
     }
 
-    // method responsible for wiping the whole options array
+    // fetching data
 
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            // chack if the JSON data is valid
+            try {
+                // grab and store stringified options array
+                var json = JSON.getItem('options');
+                // convert stringified options array into normal JS object
+                var options = JSON.parse(json);
+
+                if (options) {
+                    // show it up to the screen once again after refresh of a page
+                    this.setState(function () {
+                        return {
+                            options: options
+                        };
+                    });
+                }
+
+                console.log('fetching data');
+            } catch (e) {
+                // Do nothing at all
+            }
+        }
+
+        // saving data
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            // save data only when length of the array changed
+            if (prevState.options.length !== this.state.options.length) {
+                // return string representation of options array and store the data
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+                console.log('saving data');
+            }
+        }
+
+        // method responsible for wiping the whole options array
+
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             /*
@@ -175,6 +216,11 @@ var Options = function Options(props) {
             { onClick: props.handleDeleteOptions },
             'Remove All'
         ),
+        props.options.length === 0 && React.createElement(
+            'p',
+            null,
+            'Please add an option to get started'
+        ),
         props.options.map(function (option, i) {
             return React.createElement(Option, { key: 'option_' + (i + 1),
                 optionText: option,
@@ -237,6 +283,11 @@ var AddOption = function (_React$Component2) {
             this.setState(function () {
                 return { error: error /*or you can set it up this way: error: error */ };
             });
+
+            // if there was no error, clear the ipnut
+            if (!error) {
+                e.target.elements.option.value = '';
+            }
         }
     }, {
         key: 'render',

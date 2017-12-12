@@ -13,6 +13,43 @@ class IndecisionApp extends React.Component {
         };
     }
 
+    // fetching data
+    componentDidMount() {
+        // chack if the JSON data is valid
+        try {
+            // grab and store stringified options array
+            const json = JSON.getItem('options');
+            // convert stringified options array into normal JS object
+            const options = JSON.parse(json);
+
+            if(options){
+                // show it up to the screen once again after refresh of a page
+                this.setState(() => ({
+                    options: options
+                }));
+            }
+        
+            console.log('fetching data');
+
+        } 
+        catch (e) {
+            // Do nothing at all
+        }
+
+    }
+
+    // saving data
+    componentDidUpdate(prevProps, prevState) {
+        // save data only when length of the array changed
+        if(prevState.options.length !== this.state.options.length){
+            // return string representation of options array and store the data
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+            console.log('saving data');
+        }
+       
+    }
+
     // method responsible for wiping the whole options array
     handleDeleteOptions() {
         /*
@@ -125,6 +162,8 @@ const Options = (props) => {
     return (
         <div>
             <button onClick={props.handleDeleteOptions}>Remove All</button>
+            {/* show the message when there are no options */}
+            {props.options.length === 0 && <p>Please add an option to get started</p>}
             {/* create new instance of Option for each item in an array */}
             {props.options.map((option, i) => (
                 <Option key={`option_${i + 1}`} 
@@ -170,6 +209,12 @@ class AddOption extends React.Component {
 
         // update data and rerender it
         this.setState(() => ({ error /*or you can set it up this way: error: error */}));
+
+        // if there was no error, clear the ipnut
+        if(!error){
+            e.target.elements.option.value = '';
+        }
+        
     }
 
     render() {
