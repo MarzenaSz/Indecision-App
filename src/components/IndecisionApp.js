@@ -5,18 +5,62 @@ import Action from './Action';
 import Header from './Header';
 
 class IndecisionApp extends React.Component {
-    constructor(props){
-        super(props);
-        // bind the functions
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        // set default state
-        this.state = {
-            options: []
-        };
-    }
+    // set default state
+    state = {
+        options: []
+    };
+
+    // method responsible for wiping the whole options array
+    handleDeleteOptions = () => {
+        /*
+        // wipe the options array
+        this.setState(() => {
+            return {
+                options: []
+            };
+        });
+        */
+        // more simplified setState that implicitly returns an object
+        // wipe the options array
+        this.setState(() => ({ options: [] }));
+    };
+
+    // method responsible for wiping picked option from the array
+    handleDeleteOption = (optionToRemove) => {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option)=> {
+                // do not keep this item in an array (false)
+                return optionToRemove !== option;
+            })
+        }));
+    };
+
+    // method responsible for picking an option
+    handlePick = () => {
+        // pick a random option from options array
+        const randNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randNum];
+        // print the picked option to the screen
+        alert(option);
+    };
+
+    // method responsible for addin an option to optons array
+    handleAddOption = (option) => {
+        // add validation
+        // if there is empty string added...
+        if(!option){
+            //...print this message
+            return 'Enter valid value to add item';
+        }
+        // check if passed in option already exists
+        else if(this.state.options.indexOf(option) > -1){
+            return 'This option already exists';
+        }
+
+        // !!!!!!!!!!!!!!!!!!!!!! concat() method //
+        // merge two arrays(concat) and return a new array that contains all of the elements from both arrays
+        this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
+    };
 
     // fetching data
     componentDidMount() {
@@ -53,60 +97,9 @@ class IndecisionApp extends React.Component {
         }
     }
 
-    // method responsible for wiping the whole options array
-    handleDeleteOptions() {
-        /*
-        // wipe the options array
-        this.setState(() => {
-            return {
-                options: []
-            };
-        });
-        */
-        // more simplified setState that implicitly returns an object
-        // wipe the options array
-        this.setState(() => ({ options: [] }));
-    }
-
-    // method responsible for wiping picked option from the array
-    handleDeleteOption(optionToRemove) {
-        this.setState((prevState) => ({
-            options: prevState.options.filter((option)=> {
-                // do not keep this item in an array (false)
-                return optionToRemove !== option;
-            })
-        }));
-    }
-
-    // method responsible for picking an option
-    handlePick(){
-        // pick a random option from options array
-        const randNum = Math.floor(Math.random() * this.state.options.length);
-        const option = this.state.options[randNum];
-        // print the picked option to the screen
-        alert(option);
-    }
-
-    // method responsible for addin an option to optons array
-    handleAddOption(option){
-        // add validation
-        // if there is empty string added...
-        if(!option){
-            //...print this message
-            return 'Enter valid value to add item';
-        }
-        // check if passed in option already exists
-        else if(this.state.options.indexOf(option) > -1){
-            return 'This option already exists';
-        }
-
-        // !!!!!!!!!!!!!!!!!!!!!! concat() method //
-        // merge two arrays(concat) and return a new array that contains all of the elements from both arrays
-        this.setState((prevState) => ({ options: prevState.options.concat([option]) }));
-    }
-
     // render components
     render() {
+        
         const subtitle = "Put your life in the hands of a computer";
 
         return (

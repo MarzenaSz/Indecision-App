@@ -1,17 +1,12 @@
 import React from 'react';
 
 class AddOption extends React.Component {
-    constructor(props){
-        super(props);
-        // bind handleAddOption method so we can use "this" inside it
-        this.handleAddOption = this.handleAddOption.bind(this);
-        // set default state
-        this.state = {
-            error: undefined
-        };
-    }
-    
-    handleAddOption(e) {
+    // set default state
+    state = {
+        error: undefined
+    };
+
+    handleAddOption = (e) => {
         // prevent the full page refresh on submit
         e.preventDefault();
 
@@ -29,7 +24,7 @@ class AddOption extends React.Component {
             e.target.elements.option.value = '';
         }
         
-    }
+    };
 
     render() {
         return (
