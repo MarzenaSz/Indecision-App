@@ -13,7 +13,7 @@ class AddOption extends React.Component {
         // check if there is any value typed in and remove any trailing spaces (trim())
         const option = e.target.elements.option.value.trim();
 
-         // (log data)...pass in option as an argument inside of handleAddOption method. (!Rebind!)
+         // (log data)...pass in option as an argument inside of handleAddOption method.
         const error = this.props.handleAddOption(option);
 
         // update data and rerender it

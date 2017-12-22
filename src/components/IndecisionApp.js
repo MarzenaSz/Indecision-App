@@ -53,7 +53,7 @@ class IndecisionApp extends React.Component {
             return 'Enter valid value to add item';
         }
         // check if passed in option already exists
-        else if(this.state.options.indexOf(option) > -1){
+        else if(this.state.options.indexOf(option) > -1) {
             return 'This option already exists';
         }
 
@@ -67,7 +67,7 @@ class IndecisionApp extends React.Component {
         // chack if the JSON data is valid
         try {
             // grab and store stringified options array
-            const json = JSON.getItem('options');
+            const json = localStorage.getItem('options');
             // convert stringified options array into normal JS object
             const options = JSON.parse(json);
 
