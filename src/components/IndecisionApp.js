@@ -3,11 +3,13 @@ import AddOption from './AddOption';
 import Options from './Options';
 import Action from './Action';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 class IndecisionApp extends React.Component {
     // set default state
     state = {
-        options: []
+        options: [],
+        selectedOption: undefined
     };
 
     // method responsible for wiping the whole options array
@@ -116,6 +118,7 @@ class IndecisionApp extends React.Component {
                 />
                 {/* pass in handleAddOption prop to this component */}
                 <AddOption handleAddOption={this.handleAddOption}/> 
+                <OptionModal selectedOption={this.state.selectedOption}/>
             </div>
         );
     }
