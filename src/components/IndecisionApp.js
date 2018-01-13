@@ -43,7 +43,7 @@ class IndecisionApp extends React.Component {
         const randNum = Math.floor(Math.random() * this.state.options.length);
         const option = this.state.options[randNum];
         // print the picked option to the screen
-        alert(option);
+        this.setState({ selectedOption: option });
     };
 
     // method responsible for addin an option to optons array
