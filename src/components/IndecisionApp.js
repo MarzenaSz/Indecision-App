@@ -27,6 +27,11 @@ class IndecisionApp extends React.Component {
         this.setState(() => ({ options: [] }));
     };
 
+    // method responsible for clearning selectedOption state
+    handleClearSelectedOption = () => {
+        this.setState({ selectedOption: undefined });
+    };
+
     // method responsible for wiping picked option from the array
     handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => ({
@@ -118,7 +123,7 @@ class IndecisionApp extends React.Component {
                 />
                 {/* pass in handleAddOption prop to this component */}
                 <AddOption handleAddOption={this.handleAddOption}/> 
-                <OptionModal selectedOption={this.state.selectedOption}/>
+                <OptionModal handleClearSelectedOption={this.handleClearSelectedOption} selectedOption={this.state.selectedOption}/>
             </div>
         );
     }
