@@ -1,0 +1,26 @@
+.header {
+    /* set background color to dark gray */
+    background: #20222b;
+    /* set font color to white */
+    color: #fff;
+    /* make some space between the header and the things below it */
+    margin-bottom: 4.8rem; /* 4.8rem is equivalent to 48px */
+    /* add some space inside from the element border and the content */
+    padding: 1.6rem 0;
+}
+
+.header__title {
+    /* increase the font size of title */
+    font-size: 3.2rem;
+    /* remove space */
+    margin: 0;
+
+}
+
+.header__subtitle {
+    color: #a5afd7;
+    font-size: 1.6rem;
+    /* decrease the font weight of the subtitle */
+    font-weight: 500;
+    margin: 0;
+}
