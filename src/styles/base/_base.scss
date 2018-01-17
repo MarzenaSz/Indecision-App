@@ -9,3 +9,11 @@ body {
     color: #0f0f0f;
     background: $dark-gray;
 }
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default;
+}

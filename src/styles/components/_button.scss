@@ -9,3 +9,7 @@
     padding: 2.4rem;
     width: 100%;
 }
+
+.big-button:disabled {
+    opacity: .5;
+}
