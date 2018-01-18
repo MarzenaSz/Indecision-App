@@ -118,12 +118,14 @@ class IndecisionApp extends React.Component {
                     {/* pass in boolean props to check if there is anyhing in an array, as well as
                     hanldePick function to pick randomly and item from an array */}
                     <Action handlePick={this.handlePick} hasOptions={this.state.options.length > 0} />
-                    <Options options={this.state.options}
-                    handleDeleteOptions={this.handleDeleteOptions}
-                    handleDeleteOption={this.handleDeleteOption}
-                    />
-                    {/* pass in handleAddOption prop to this component */}
-                    <AddOption handleAddOption={this.handleAddOption}/>  
+                    <div className="widget">
+                        <Options options={this.state.options}
+                        handleDeleteOptions={this.handleDeleteOptions}
+                        handleDeleteOption={this.handleDeleteOption}
+                        />
+                        {/* pass in handleAddOption prop to this component */}
+                        <AddOption handleAddOption={this.handleAddOption}/>
+                    </div>  
                 </div>
                 <OptionModal handleClearSelectedOption={this.handleClearSelectedOption} selectedOption={this.state.selectedOption}/>
             </div>
