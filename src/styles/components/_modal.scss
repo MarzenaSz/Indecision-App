@@ -1,9 +1,14 @@
+// add animation when the modal is opening and closing
 .ReactModalPortal > div {
     opacity: 0;
 }
 
 .ReactModalPortal .ReactModal__Overlay {
-    transition: opacity 300ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+    // center the modal
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ReactModalPortal .ReactModal__Overlay--after-open {
@@ -12,4 +17,27 @@
 
 .ReactModalPortal .ReactModal__Overlay--before-close {
     opacity: 0;
+}
+
+.modal {
+    background: $light-gray;
+    color: white;
+    // prevent expanding the modal out, instead cause it to wrap
+    max-width: 30rem;
+    // remove border
+    outline: none;
+    padding: $l-size;
+    text-align: center;
+}
+
+.modal__title {
+    margin: 0 0 $m-size 0;
+}
+
+.modal__body {
+    margin: 0 0 $l-size 0;
+    font-weight: 300;
+    font-size: 2rem;
+    // break up long words
+    word-break: break-all;
 }
