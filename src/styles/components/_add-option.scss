@@ -1,0 +1,24 @@
+.add-option-error {
+    color: $off-white;
+    font-style: italic;
+    padding: 0 $m-size;
+    margin: $m-size 0 0 0;
+}
+
+
+.add-option {
+    // streatch the input horizontaly
+    display: flex;
+    padding: $m-size;
+}
+
+.add-option__input {
+    // make the input to fill the whole available space
+    flex-grow: 1;
+    background: $dark-gray;
+    border: none;
+    border-bottom: .3rem solid darken($dark-gray, 10%);
+    margin-right: $s-size;
+    color: $off-white;
+    padding: $s-size;
+}
